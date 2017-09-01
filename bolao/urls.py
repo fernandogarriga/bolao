@@ -16,8 +16,16 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from palpites import views
+import instituicoes.views
+import usuarios.views
+from django.conf.urls import include
+
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^palpites/$', views.palpites_list),
+    url(r'^palpites/$', views.palpites_list, name='palpites'),
+    url(r'^instituicoes/$', instituicoes.views.instituicoes_list, name='instituicoes'),
+    url(r'^', include('usuarios.urls', namespace='usuarios', app_name='usuarios')),
+    url(r'^', include('palpites.urls', namespace='palpites', app_name='palpites')),
+    #url(r'^', include('usuarios.urls', namespace='usuarios', app_name='usuarios')),
 ]

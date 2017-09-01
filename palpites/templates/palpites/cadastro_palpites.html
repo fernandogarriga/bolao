@@ -1,0 +1,46 @@
+{% extends 'bolao/base.html' %}
+
+{% block content %}
+<div class="col-md-4">
+</div>
+<div class="col-md-4">
+    	<form action="{% url 'palpites:cadastro-palpites' %}" class="form-sigin" method="post">
+    		{% csrf_token %}
+    		<h2>Cadastre seu palpite</h2>
+    		{{form.autor}}
+    		<br>
+    		<label>Nome do seu palpite</label>
+    		{{form.title}}
+    		{{form.title.error}}
+    		<br>
+    		<label>Jogo 1</label><br>
+    		{{form.pj1c}}
+    		{{form.pj1c.error}} X 
+    		{{form.pj1f}}
+    		{{form.pj1f.error}}
+    		<br>
+    		<label>Jogo 2</label><br>
+    		{{form.pj2c}}
+    		{{form.pj2c.error}} X 
+    		{{form.pj2f}}
+    		{{form.pj2f.error}}
+            <br>
+            <label>Jogo 3</label><br>
+            {{form.pj3c}}
+            {{form.pj3c.error}} X 
+            {{form.pj3f}}
+            {{form.pj3f.error}}
+            <br>
+            <label>Jogo 4</label><br>
+            {{form.pj4c}}
+            {{form.pj4c.error}} X 
+            {{form.pj4f}}
+            {{form.pj4f.error}}
+
+    		<button class="btn btn-lg btn-primary btn-block" type="submit">Jogar</button>
+    	</form>
+</div>
+<div class="col-md-4">
+</div>	
+		
+{% endblock content %}

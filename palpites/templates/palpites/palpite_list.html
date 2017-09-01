@@ -1,9 +1,40 @@
-<html>
-    <head>
-        <title>Bolão| Palpites</title>
-    </head>
-    <body>
-    	<h1>Palpites</h1>
+{% extends 'bolao/base.html' %}
+
+{% block content %}
+    	<h2>Palpites</h2>
+    	
+        {% for palpite in palpites %}
         
-    </body>
-</html>
+        	<div class="box_tabela">
+        		<table class="tabela palpites">
+				<tr>
+				    <th class="nome_palpite">{{ palpite }}({{ palpite.autor }})</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+				    <th class="total_palpite">{{ palpite.total }}</th>
+				</tr>
+        		<tr>
+                    <td></td><td></td><td></td><td></td><td></td><td></td>
+                </tr>
+        		<tr>
+        			<td>Jogo 1</td><td></td><td>{{ palpite.pj1c }}</td><td>X</td><td>{{ palpite.pj1f }}</td><td></td>
+        		</tr>
+        		<tr>
+        			<td>Jogo 2</td><td></td><td>{{ palpite.pj2c }}</td><td>X</td><td>{{ palpite.pj2f }}</td><td></td>
+        		</tr>
+        		<tr>
+        			<td>Jogo 3</td><td></td><td>{{ palpite.pj3c }}</td><td>X</td><td>{{ palpite.pj3f }}</td><td></td>
+        		</tr>	
+        		<tr>
+        			<td>Jogo 4</td><td></td><td>{{ palpite.pj4c }}</td><td>X</td><td>{{ palpite.pj4f }}</td><td></td>
+        		</tr>
+        		<tr>
+        			<td></td><td></td><td></td><td></td><td></td><td></td>
+        		</tr>			
+		        </table>	 
+		    </div>
+		{% endfor %}
+		<div class="clear"></div>
+{% endblock content %}

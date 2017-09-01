@@ -1,0 +1,279 @@
+{% load staticfiles %}
+<html>
+    <head>
+        <title>Bolão | Copa</title>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+        
+        <style type="text/css">
+        	*, h1 {
+        		padding: 0;
+        		margin: 0;
+        		color: #FFF;
+        	}
+
+        	body {
+        		background-image: url(https://template63454.motopreview.com/mt-demo/63400/63454/mt-content/uploads/2017/05/mt-0966-header-bg.jpg);
+        	}
+
+
+        	#topo h1 {
+        		display: block;
+        		width: 30%;
+        		height: 80px;
+        		float: left;
+        	}
+
+        	h2 {
+        		font-size: 3em;
+        		color: #428bca;
+        	}
+
+        	.clear {
+        		clear: both;
+        		width: 100%;
+        	}
+
+        	#topo {
+        		width: 100%;
+        		height: 80px;
+        		background-color: #428bca;
+        	}
+        	#topo ul {
+        		display: block;
+        		width: 60%;
+        		list-style: none;
+        	}
+        	#topo li {
+        		display: block;
+        		padding: 20px;
+        		float: left;
+        	}
+        	#topo li a {
+        		color: #FFF;
+        	}
+        	#destaque_topo {
+        		width: 10%;
+        		height: 80px;
+        		float: right;
+        		max-width: 80px;
+        	}
+
+        	#avatar {
+        		display: block;
+        		width: 80%;
+        		margin-top: 10px;
+        		opacity: 0.5;
+        		transition: opacity 0.3s;
+        	}
+
+        	#avatar:hover {
+        		opacity: 1;
+        		transition: opacity 0.5s;
+        	}
+
+        	#avatar img {
+        		display: block;
+        		width: 100%;
+        		min-width: 20px;
+        	}
+
+        	#avatar #conteudo_avatar {
+        		display: none;
+        		background-color: #ccc;
+        		position: absolute;
+        		padding: 20px;
+        		margin-left: -80px;
+        	}
+
+        	#avatar:hover #conteudo_avatar {
+        		display: block;
+        	}
+
+        	.conteudo {
+        		width: 100%;
+        		min-height: 600px;
+        		padding: 40px;
+			    margin-top: 40px;
+			    color: #999;
+			    background-color: #fff;
+			    -webkit-border-radius: 30px;
+				-moz-border-radius: 30px;
+				border-radius: 30px;
+
+				-webkit-box-shadow: 10px 10px 59px 0px rgba(0,0,0,0.75);
+				-moz-box-shadow: 10px 10px 59px 0px rgba(0,0,0,0.75);
+				box-shadow: 10px 10px 59px 0px rgba(0,0,0,0.75);
+			}
+
+			.lista_padrao {
+				list-style: none;
+			}
+
+			.lista_padrao li {
+				color: #999;
+			}
+
+			.tabela {
+				width: 100%;
+				background-color: #428bca;
+				-webkit-border-top-left-radius: 30px;
+				-webkit-border-top-right-radius: 30px;
+				-moz-border-radius-topleft: 30px;
+				-moz-border-radius-topright: 30px;
+				border-top-left-radius: 30px;
+				border-top-right-radius: 30px;
+
+			}
+
+			.tabela td {
+				background-color: #fff;
+				padding-top: 5px;
+				padding-bottom: 5px;
+				padding-left: 20px;
+				padding-right: 20px;
+				color: #333;
+			}
+
+			.tabela th {
+				padding: 20px;
+			}
+
+			.tabela tr {
+				padding: 20px;
+			}
+
+			.primeiro_td {
+				width: 90%;
+			}
+
+			.segundo_td {
+				width: 10%;
+			}
+
+			form, form label {
+				color: #333;
+			}
+
+			form input {
+				color: #333;
+			}
+
+			.conteudo .box {
+				color: 333;
+			}
+
+			#menu li ul {
+				display: none;
+				width: 200px;
+				padding: 10px;
+				background-color: #ccc;
+				position: absolute;
+				z-index: 9999;
+			}
+
+			#menu li:hover ul {
+				display: block;
+			}
+
+			#menu li ul li {
+		
+				width: 100%;
+				padding: 10px !important;
+			
+			}
+
+            .box_tabela {
+                width: 90%;
+                margin: 0 auto;
+                border: 2px solid #FFF;
+
+                max-height: 50;
+                transition: max-height 0.60s ease-out;
+                overflow: hidden;
+            }
+
+            .box_tabela:hover {
+                max-height: 500px;
+                transition: max-height 0.50s ease-in;
+            }
+
+            .tabela.palpites {
+                width: 100%;
+            }
+
+            .tabela.palpites td {
+                background-color: #ccc;
+            
+            }
+
+            .tabela.palpites tr .nome_palpite {
+                text-align: left;
+            }
+
+            .tabela.palpites tr .total_palpite {
+                text-align: right;
+            }            
+
+            
+
+        </style>
+    </head>
+    <body>
+    <div id="topo">
+    	<div id="conteudo_topo">
+    		<h1>LOGO</h1>
+    		<ul id="menu">
+    			{% if user.is_authenticated %}
+    			<li><a href="/boleiros">Boleiros</a></li>
+    			<li>Palpites
+    				<ul>
+    					<li>
+    						<a href="{% url 'palpites' %}">Ver todos os palpites</a>
+    					</li>
+    					<li>
+    						<a href="/cadastro-palpites">Cadastrar palpite</a>
+    					</li>
+    				</ul>
+    			</li>
+    			<li><a href="{% url 'instituicoes' %}">Times cadastrados</a></li>
+    			{% else %}
+    			<li><a href="/cadastro">Cadastrar</a></li>	
+    			{% endif %}
+    		</ul>
+    		<div id="destaque_topo">
+    		{% load static %}
+    			
+    			{% if user.is_authenticated %}
+	    			<div id="avatar" href=""><img src="{% static 'usuarios/avatar.gif' %}" alt="Sua Conta"/>
+	    				<div id="conteudo_avatar">
+	    					Welcome {{ user.username }} <br>
+	    					<a href="{% url 'usuarios:logout' %}">Sair[X]</a>
+	    				</div>
+	    			</div>
+	    			
+    			{% endif %}
+    		</div>
+    	</div>
+    </div>
+ 
+    <div class="content container">
+        <div class="row">
+            <div class="col-md-12">
+            {% if messages %}
+			  <ul class="messages">
+			    {% for message in messages %}
+			      <li class="{{ message.tags }}">{{ message }}</li>
+			    {% endfor %}
+			  </ul>
+			{% endif %}
+			<div class="conteudo">
+	            {% block content %}
+	            {% endblock %}
+            </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

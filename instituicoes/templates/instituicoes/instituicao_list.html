@@ -1,0 +1,13 @@
+{% extends 'bolao/base.html' %}
+
+{% block content %}
+    	<h1>Instituições</h1>
+    	
+        {% for instituicao in instituicoes %}
+        	<ul>	
+			    <li>{{ instituicao.id }} - {{ instituicao.nome }} - {{ instituicao.nome_curto }}</li>
+		    </ul>
+
+		{% endfor %}
+		
+{% endblock content %}

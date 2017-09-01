@@ -1,0 +1,17 @@
+{% extends 'bolao/base.html' %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+    <h2>Você está logado(a), segue o jogo!</h2>
+{% else %}
+
+<div class="col-md-4">
+</div>
+<div class="col-md-4">
+    	<h2>PARABÉNS!! Você foi cadastrado com sucesso.</h2>
+</div>
+<div class="col-md-4">
+</div>	
+{% endif %}	
+{% endblock content %}
