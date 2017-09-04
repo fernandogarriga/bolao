@@ -5,7 +5,15 @@
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
         <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+   
+        <script type="text/javascript" src="{% static 'js/jquery-1.11.3.js' %}"></script>
         
+        <script type="text/javascript">
+            $(document).ready(function({
+                alert();
+            }))
+        </script>
+
         <style type="text/css">
         	*, h1 {
         		padding: 0;
@@ -28,7 +36,16 @@
         	h2 {
         		font-size: 3em;
         		color: #428bca;
+                text-align: center;
         	}
+
+            p {
+                color: #333;
+            }
+
+            p strong {
+                color: #428bca;
+            }
 
         	.clear {
         		clear: both;
@@ -101,7 +118,6 @@
 			    -webkit-border-radius: 30px;
 				-moz-border-radius: 30px;
 				border-radius: 30px;
-
 				-webkit-box-shadow: 10px 10px 59px 0px rgba(0,0,0,0.75);
 				-moz-box-shadow: 10px 10px 59px 0px rgba(0,0,0,0.75);
 				box-shadow: 10px 10px 59px 0px rgba(0,0,0,0.75);
@@ -118,13 +134,6 @@
 			.tabela {
 				width: 100%;
 				background-color: #428bca;
-				-webkit-border-top-left-radius: 30px;
-				-webkit-border-top-right-radius: 30px;
-				-moz-border-radius-topleft: 30px;
-				-moz-border-radius-topright: 30px;
-				border-top-left-radius: 30px;
-				border-top-right-radius: 30px;
-
 			}
 
 			.tabela td {
@@ -137,7 +146,7 @@
 			}
 
 			.tabela th {
-				padding: 20px;
+				padding: 10px;
 			}
 
 			.tabela tr {
@@ -187,24 +196,54 @@
             .box_tabela {
                 width: 90%;
                 margin: 0 auto;
-                border: 2px solid #FFF;
-
-                max-height: 50;
-                transition: max-height 0.60s ease-out;
-                overflow: hidden;
             }
 
-            .box_tabela:hover {
-                max-height: 500px;
-                transition: max-height 0.50s ease-in;
+            
+
+            .tabela.palpites {
+                display: none;
+                width: 30%;
+                border: 4px solid #fff;
+                height: 100px;
+                -webkit-border-radius: 20px;
+                -moz-border-radius: 20px;
+                margin-left: 20px;
+            }
+
+            .box_tabela:hover .tabela.palpites {
+                display: table;
+                position: absolute;
+
             }
 
             .tabela.palpites {
-                width: 100%;
+                display: none;
+                width: 30%;
+                height: 100px;
+                margin-left: 20%;
+                margin-top: -30px;
             }
 
             .tabela.palpites td {
                 background-color: #ccc;
+                font-size: 10px;
+                margin: 0;
+                padding: 0;
+                border: 1px solid #fff;
+                color: #333;
+                border: 2px solid #fff;
+            }
+
+            .tabela.palpites tr {
+                opacity: 0.8;
+            }
+
+            .tabela.palpites tr:hover {
+                opacity: 1;
+            }
+
+            .tabela.palpites td.placar {
+               text-align: center;
             
             }
 
@@ -214,7 +253,24 @@
 
             .tabela.palpites tr .total_palpite {
                 text-align: right;
-            }            
+            }   
+
+            .tabela.pontos {
+                border: 1px solid #FFF;
+                -webkit-border-radius: 8px;
+                -moz-border-radius: 8px;
+                border-radius: 8px;
+            }
+
+          
+
+            .total_palpite {
+                width: 10px;
+            }
+
+
+
+
 
             
 

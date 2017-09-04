@@ -11,7 +11,7 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 def palpites_list(request):
-    palpites = Palpite.objects.all()
+    palpites = Palpite.objects.all().order_by('-total')
 
     #PONTUAÇÃO
     empate_certo = 5
@@ -54,90 +54,96 @@ def palpites_list(request):
 
         #-----inicio------#
 
-    	if ((pj1c == pj1f)and(rj1c == rj1f)):
-    		if ((pj1c == rj1c)and(pj1f == rj1f)):
-    			total = total+empate_certo
-    		else: 
-    			total = total+empate_errado	
-    			
+        if ((rj1c and rj1f) != "?"):
 
-    	elif (pj1c > pj1f):
-    		if (rj1c > rj1f):
-    			if ((pj1c == rj1c)and(pj1f == rj1f)):
-    				total = total+placar_certo
-    			elif ((pj1c == rj1c)and(pj1f != rj1f)):
-    				total = total+vencedor_certo
-    			elif ((pj1c != rj1c)and(pj1f == rj1f)):
-    				total = total+perdedor_certo
-    			else:
-    				total = total+vencedor
-    		else:
-    			total = total
+        	if ((pj1c == pj1f)and(rj1c == rj1f)):
+        		if ((pj1c == rj1c)and(pj1f == rj1f)):
+        			total = total+empate_certo
+        		else: 
+        			total = total+empate_errado	
+        			
 
-
-    	else:
-    		if (rj1c < rj1f):
-    			if ((pj1c == rj1c)and(pj1f == rj1f)):
-    				total = total+placar_certo
-    			elif ((pj1c == rj1c)and(pj1f != rj1f)):
-    				total = total+perdedor_certo
-    			elif ((pj1c != rj1c)and(pj1f == rj1f)):
-    				total = total+vencedor_certo
-    			else:
-    				total = total+vencedor
-    		else:
-    			total = total
-
-        #-----fim------#
+        	elif (pj1c > pj1f):
+        		if (rj1c > rj1f):
+        			if ((pj1c == rj1c)and(pj1f == rj1f)):
+        				total = total+placar_certo
+        			elif ((pj1c == rj1c)and(pj1f != rj1f)):
+        				total = total+vencedor_certo
+        			elif ((pj1c != rj1c)and(pj1f == rj1f)):
+        				total = total+perdedor_certo
+        			else:
+        				total = total+vencedor
+        		else:
+        			total = total
 
 
-        #-----inicio------#
+        	else:
+        		if (rj1c < rj1f):
+        			if ((pj1c == rj1c)and(pj1f == rj1f)):
+        				total = total+placar_certo
+        			elif ((pj1c == rj1c)and(pj1f != rj1f)):
+        				total = total+perdedor_certo
+        			elif ((pj1c != rj1c)and(pj1f == rj1f)):
+        				total = total+vencedor_certo
+        			else:
+        				total = total+vencedor
+        		else:
+        			total = total
 
-        if ((pj2c == pj2f)and(rj2c == rj2f)):
-            if ((pj2c == rj2c)and(pj2f == rj2f)):
-                total = total+empate_certo
-            else: 
-                total = total+empate_errado 
-                
+            #-----fim------#
 
-        elif (pj2c > pj2f):
-            if (rj2c > rj2f):
+
+            #-----inicio------#
+        if ((rj2c and rj2f) != "?"):
+
+            if ((pj2c == pj2f)and(rj2c == rj2f)):
                 if ((pj2c == rj2c)and(pj2f == rj2f)):
-                    total = total+placar_certo
-                elif ((pj2c == rj2c)and(pj2f != rj2f)):
-                    total = total+vencedor_certo
-                elif ((pj2c != rj2c)and(pj2f == rj2f)):
-                    total = total+perdedor_certo
+                    total = total+empate_certo
+                else: 
+                    total = total+empate_errado 
+                    
+
+            elif (pj2c > pj2f):
+                if (rj2c > rj2f):
+                    if ((pj2c == rj2c)and(pj2f == rj2f)):
+                        total = total+placar_certo
+                    elif ((pj2c == rj2c)and(pj2f != rj2f)):
+                        total = total+vencedor_certo
+                    elif ((pj2c != rj2c)and(pj2f == rj2f)):
+                        total = total+perdedor_certo
+                    else:
+                        total = total+vencedor
                 else:
-                    total = total+vencedor
+                    total = total
+
+
             else:
-                total = total
-
-
-        else:
-            if (rj2c < rj2f):
-                if ((pj2c == rj1c)and(pj2f == rj2f)):
-                    total = total+placar_certo
-                elif ((pj2c == rj2c)and(pj2f != rj2f)):
-                    total = total+perdedor_certo
-                elif ((pj2c != rj2c)and(pj2f == rj2f)):
-                    total = total+vencedor_certo
+                if (rj2c < rj2f):
+                    if ((pj2c == rj1c)and(pj2f == rj2f)):
+                        total = total+placar_certo
+                    elif ((pj2c == rj2c)and(pj2f != rj2f)):
+                        total = total+perdedor_certo
+                    elif ((pj2c != rj2c)and(pj2f == rj2f)):
+                        total = total+vencedor_certo
+                    else:
+                        total = total+vencedor
                 else:
-                    total = total+vencedor
-            else:
-                total = total
+                    total = total
 
-        #-----fim------#
+            #-----fim------#
 
 
 
 
 
 
-
+        p = Palpite.objects.get(id = palpite.id)
+        p.total = total
+        p.save()
 
     	palpite.total = total
-    
+        
+
     
     return render(request, 'palpites/palpite_list.html', {'palpites' : palpites})
 

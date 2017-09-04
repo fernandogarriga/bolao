@@ -3,6 +3,7 @@
 {% block content %}
 	
 	    <h2>Boleiros</h2>
+	    <h4>Somos  ({{ boleiros.count }}) no total</h4>
 
 		<table class="tabela">
 				<tr>
@@ -15,7 +16,6 @@
 					 <tr>
 					<td class="primeiro_td">{{ boleiro.first_name }}</td>
 					<td class="segundo_td">{{ boleiro.username }}</td>
-					<td class="segundo_td">{{ boleiro.palpites_set.all|length }}</td>
 					</tr>
 				{% endfor %} 
 				

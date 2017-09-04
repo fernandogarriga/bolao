@@ -7,6 +7,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
+from palpites.models import Palpite
+
 def cadastro(request):
 	form = UserModelForm(request.POST or None)
 	context = {'form':form}
@@ -30,9 +32,13 @@ def do_login(request):
 		if user is not None:
 			login(request, user)
 			return redirect('/cadastro')
-	return render(request, 'usuarios/login.html')
+	boleiros = User.objects.all()
+	palpites = Palpite.objects.all()
+	return render(request, 'usuarios/login.html', {'boleiros' : boleiros, 'palpites' : palpites})
 
 @login_required
 def do_logout(request):
 	logout(request)
+	boleiros = User.objects.all()
+	palpites = Palpite.objects.all()
 	return redirect('/login')
