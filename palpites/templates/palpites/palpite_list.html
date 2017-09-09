@@ -5,7 +5,7 @@
     	<h2>Ranking</h2>
     	<br><br>
         {% for palpite in palpites %}
-        
+            
         	<div class="box_tabela">
         		<table class="tabela pontos">
     				<tr>
@@ -20,7 +20,7 @@
         		
                 <table class="tabela palpites">
             		<tr>
-            			<td>Jogo 1</td><td>BRA</td><td class="placar">{{ palpite.pj1c }}</td><td class="placar">X</td><td class="placar">{{ palpite.pj1f }}</td><td>ARG</td>
+            			<td>Jogo 1</td><td><img src="{{ instituicoes.0.image.url }}" title="{{ instituicoes.0.nome_curto }}" width="20" /></td><td class="placar">{{ palpite.pj1c }}</td><td class="placar">X</td><td class="placar">{{ palpite.pj1f }}</td><td><img src="{{ instituicoes.1.image.url }}" title="{{ instituicoes.1.nome_curto }}" width="20" /></td>
             		</tr>
             		<tr>
             			<td>Jogo 2</td><td></td><td class="placar">{{ palpite.pj2c }}</td><td class="placar">X</td><td class="placar">{{ palpite.pj2f }}</td><td></td>

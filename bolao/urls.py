@@ -19,6 +19,9 @@ from palpites import views
 import instituicoes.views
 import usuarios.views
 from django.conf.urls import include
+from django.conf.urls.static import static
+from django.conf import settings
+
 
 
 urlpatterns = [
@@ -28,4 +31,5 @@ urlpatterns = [
     url(r'^', include('usuarios.urls', namespace='usuarios', app_name='usuarios')),
     url(r'^', include('palpites.urls', namespace='palpites', app_name='palpites')),
     #url(r'^', include('usuarios.urls', namespace='usuarios', app_name='usuarios')),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+

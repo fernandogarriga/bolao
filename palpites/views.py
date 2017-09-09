@@ -7,11 +7,14 @@ from models import Palpite
 from .forms import PalpiteForm
 from django.contrib.auth.decorators import login_required
 
+from instituicoes.models import Instituicao
+
 
 # Create your views here.
 
 def palpites_list(request):
     palpites = Palpite.objects.all().order_by('-total')
+    instituicoes = Instituicao.objects.all()
 
     #PONTUAÇÃO
     empate_certo = 5
@@ -145,7 +148,7 @@ def palpites_list(request):
         
 
     
-    return render(request, 'palpites/palpite_list.html', {'palpites' : palpites})
+    return render(request, 'palpites/palpite_list.html', {'palpites' : palpites, 'instituicoes' : instituicoes})
 
 
 @login_required

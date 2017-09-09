@@ -5,7 +5,10 @@
     	
         {% for instituicao in instituicoes %}
         	<ul>	
-			    <li>{{ instituicao.id }} - {{ instituicao.nome }} - {{ instituicao.nome_curto }}</li>
+			    <li>{{ instituicao.id }} - {{ instituicao.nome }} - {{ instituicao.nome_curto }}
+                {% if instituicao.image %}
+                 - <img src="{{ instituicao.image.url }}" width="20"></li>
+                {% endif %}
 		    </ul>
 
 		{% endfor %}
