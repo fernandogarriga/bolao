@@ -13,24 +13,16 @@
 <div class="col-md-4">
 </div>
 <div class="col-md-4">
-    	<form action="{% url 'usuarios:cadastro' %}" class="form-sigin" method="post">
+    	<form action="{% url 'usuarios:cadastro' %}" class="form-sigin" method="post" enctype="multipart/form-data">
     		{% csrf_token %}
     		<h2>Por favor, cadastre-se</h2>
-    		<label>Nome de usuário</label>
-    		{{ form.username}}
-    		{{ form.username.error}}
-    		<label>Primeiro nome</label>
-    		{{ form.first_name}}
-    		{{ form.first_name.error}}
-    		<label>Sobrenome</label>
-    		{{ form.last_name}}
-    		{{ form.last_name.error}}
-    		<label>E-mail</label>
-    		{{ form.email}}
-    		{{ form.email.error}}
-    		<label>Senha</label>
-    		{{ form.password}}
-    		{{ form.password.error}}
+    		{{ form.as_p }}
+            <label>Telefone</label>
+            {{ form2.telefone }}
+            {{ form2.telefone.error }}
+            <label>Avatar</label>
+            {{ form2.avatar }}
+            {{ form2.avatar.error }}
     		<br><button class="btn btn-lg btn-primary btn-block" type="submit">Jogar</button>
     	</form>
 </div>

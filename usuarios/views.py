@@ -8,15 +8,33 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
 from palpites.models import Palpite
+from .forms import ProfileForm
+
+from django.template.context_processors import csrf
 
 def cadastro(request):
 	form = UserModelForm(request.POST or None)
-	context = {'form':form}
+	form2 = ProfileForm(request.POST, request.FILES, prefix='profile')
+	context = {'form':form, 'form2':form2}
 	if request.method == 'POST':
-		if form.is_valid():
-			form.save()
+		if form.is_valid() and form2.is_valid():
+			user = form.save()
+			
+
+			#create entry for UserProfile (extension of new_user object)      
+			profile = form2.save(commit = False)
+			profile.user = User.objects.get(username=request.POST['username'])
+			profile.save()
 			sucesso = "Parabéns! Você foi cadastrado com sucesso, efetue o login para entrar em campo."
-			return render(request, '/login', )
+			return render(request, '/login')
+	else:
+		form = UserModelForm(prefix = "user")
+		form2 = ProfileForm(prefix = "profile")
+		c = {
+			'form':form,
+			'form2':form2,
+			}
+		c.update(csrf(request))
 	return render(request, 'usuarios/cadastro.html', context)
 
 # Create your views here.
@@ -42,3 +60,32 @@ def do_logout(request):
 	boleiros = User.objects.all()
 	palpites = Palpite.objects.all()
 	return redirect('/login')
+
+
+
+
+
+
+
+
+
+@login_required
+
+def update_profile(request):
+    if request.method == 'POST':
+        user_form = UserForm(request.POST, instance=request.user)
+        profile_form = ProfileForm(request.POST, instance=request.user.profile)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            messages.success(request, _('Your profile was successfully updated!'))
+            return redirect('settings:profile')
+        else:
+            messages.error(request, _('Please correct the error below.'))
+    else:
+        user_form = UserForm(instance=request.user)
+        profile_form = ProfileForm(instance=request.user.profile)
+    return render(request, 'profiles/profile.html', {
+        'user_form': user_form,
+        'profile_form': profile_form
+    })
