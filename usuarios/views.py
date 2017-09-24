@@ -10,6 +10,8 @@ from django.contrib.auth.decorators import login_required
 from palpites.models import Palpite
 from .forms import ProfileForm
 
+from .models import Profile
+
 from django.template.context_processors import csrf
 
 def cadastro(request):
@@ -40,8 +42,8 @@ def cadastro(request):
 # Create your views here.
 @login_required
 def boleiros(request):
-    boleiros = User.objects.all()
-    return render(request, 'usuarios/boleiros.html', {'boleiros' : boleiros})
+	boleiros = User.objects.all().filter(profile__status=True)
+	return render(request, 'usuarios/boleiros.html', {'boleiros' : boleiros})
 
 
 def do_login(request):

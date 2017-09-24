@@ -11,6 +11,7 @@
 					<th>Nome</th>
 					<th>Username</th>
 					<th>Telefone</th>
+					<th>Status</th>
 				</tr>
 			   
 				{% for boleiro in boleiros %}
@@ -18,7 +19,7 @@
 				<tr>
 					<td class="segundo_td"><img src="{{ BASE_URL }}/media/{{ boleiro.profile.avatar }}" width="20"></td>
 					<td class="primeiro_td">{{ boleiro.first_name }}</td>
-					<td class="segundo_td">{{ boleiro.username }}</td>
+					<td class="segundo_td">{{ boleiro.profile.user }}</td>
 					<td class="segundo_td">{{ boleiro.profile.telefone }}</td>
 					<td class="segundo_td">{{ boleiro.profile.status }}</td>
 				</tr>

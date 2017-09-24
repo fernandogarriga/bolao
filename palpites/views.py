@@ -8,12 +8,15 @@ from .forms import PalpiteForm
 from django.contrib.auth.decorators import login_required
 
 from instituicoes.models import Instituicao
+from django.contrib.auth.models import User
+from usuarios.models import Profile
 
 
 # Create your views here.
 
 def palpites_list(request):
-    palpites = Palpite.objects.all().order_by('-total')
+    autores = User.objects.all().filter(profile__status=True)
+    palpites = Palpite.objects.all().filter(autor__in=autores).order_by('-total')
     instituicoes = Instituicao.objects.all()
 
     #PONTUAÇÃO
@@ -122,7 +125,7 @@ def palpites_list(request):
 
             else:
                 if (rj2c < rj2f):
-                    if ((pj2c == rj1c)and(pj2f == rj2f)):
+                    if ((pj2c == rj2c)and(pj2f == rj2f)):
                         total = total+placar_certo
                     elif ((pj2c == rj2c)and(pj2f != rj2f)):
                         total = total+perdedor_certo
@@ -136,7 +139,43 @@ def palpites_list(request):
             #-----fim------#
 
 
+        if ((rj3c and rj3f) != "?"):
 
+            if ((pj3c == pj3f)and(rj3c == rj3f)):
+                if ((pj3c == rj3c)and(pj3f == rj3f)):
+                    total = total+empate_certo
+                else: 
+                    total = total+empate_errado 
+                    
+
+            elif (pj3c > pj3f):
+                if (rj3c > rj3f):
+                    if ((pj3c == rj3c)and(pj3f == rj3f)):
+                        total = total+placar_certo
+                    elif ((pj3c == rj3c)and(pj3f != rj3f)):
+                        total = total+vencedor_certo
+                    elif ((pj3c != rj3c)and(pj3f == rj3f)):
+                        total = total+perdedor_certo
+                    else:
+                        total = total+vencedor
+                else:
+                    total = total
+
+
+            else:
+                if (rj3c < rj3f):
+                    if ((pj3c == rj3c)and(pj3f == rj3f)):
+                        total = total+placar_certo
+                    elif ((pj3c == rj3c)and(pj3f != rj3f)):
+                        total = total+perdedor_certo
+                    elif ((pj3c != rj3c)and(pj3f == rj2f)):
+                        total = total+vencedor_certo
+                    else:
+                        total = total+vencedor
+                else:
+                    total = total
+
+            #-----fim------#
 
 
 
@@ -146,16 +185,17 @@ def palpites_list(request):
 
     	palpite.total = total
         
-
+        i=0
     
-    return render(request, 'palpites/palpite_list.html', {'palpites' : palpites, 'instituicoes' : instituicoes})
+    return render(request, 'palpites/palpite_list.html', {'palpites' : palpites, 'instituicoes' : instituicoes, 'i':i})
 
 
 @login_required
 def cadastro_palpites(request):
-	form = PalpiteForm(request.POST or None)
-	context = {'form':form}
-	if request.method == 'POST':
+    form = PalpiteForm(request.POST or None)
+    instituicoes = Instituicao.objects.all()
+    context = {'form':form, 'instituicoes':instituicoes}
+    if request.method == 'POST':
 		if form.is_valid():
 			palpite = form.save(commit=False)
 			palpite.autor = request.user
@@ -163,4 +203,4 @@ def cadastro_palpites(request):
 			form.save()
 
 			return redirect('/palpites')
-	return render(request, 'palpites/cadastro_palpites.html', context)
+    return render(request, 'palpites/cadastro_palpites.html', context)

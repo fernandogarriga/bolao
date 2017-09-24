@@ -2,7 +2,7 @@
 from django.db import models
 
 class Palpite(models.Model):
-    autor = models.ForeignKey('auth.User', null=True)
+    autor = models.ForeignKey('auth.User', null=True, related_name="palpite")
     title = models.CharField(max_length=20)
     pj1c = models.IntegerField()
     pj1f = models.IntegerField()

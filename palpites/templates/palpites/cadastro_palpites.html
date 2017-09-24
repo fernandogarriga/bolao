@@ -1,9 +1,9 @@
 {% extends 'bolao/base.html' %}
 
 {% block content %}
-<div class="col-md-4">
+<div class="col-md-3">
 </div>
-<div class="col-md-4">
+<div class="col-md-6">
     	<form action="{% url 'palpites:cadastro-palpites' %}" class="form-sigin" method="post">
     		{% csrf_token %}
     		<h2>Cadastre seu palpite</h2>
@@ -13,12 +13,23 @@
     		{{form.title}}
     		{{form.title.error}}
     		<br>
-    		<label>Jogo 1</label><br>
-    		{{form.pj1c}}
-    		{{form.pj1c.error}} X 
-    		{{form.pj1f}}
-    		{{form.pj1f.error}}
-    		<br>
+            <table class="tabela_cadastro_palpites">
+                <tr>
+                
+                    <td>Jogo 1</td>
+                    <td class="primeiro"><img src="{{ instituicoes.0.image.url }}" title="{{ instituicoes.0.nome_curto }}" width="20" /> </td>
+                    <td class="primeiro">{{ instituicoes.0.nome_curto }}</td>
+                    <td class="input_placar primeiro">{{form.pj1c}}
+                    {{form.pj1c.error}}</td>
+                    <td class="versus">X</td>
+                    <td class="input_placar">{{form.pj1f}}
+                    {{form.pj1f.error}}</td>
+                    <td>{{ instituicoes.1.nome_curto }}</td>
+                    <td><img src="{{ instituicoes.1.image.url }}" title="{{ instituicoes.1.nome_curto }}" width="20" /></td>
+                
+                </tr>
+            </table>
+    		
     		<label>Jogo 2</label><br>
     		{{form.pj2c}}
     		{{form.pj2c.error}} X 
@@ -40,7 +51,7 @@
     		<button class="btn btn-lg btn-primary btn-block" type="submit">Jogar</button>
     	</form>
 </div>
-<div class="col-md-4">
+<div class="col-md-3">
 </div>	
 		
 {% endblock content %}
